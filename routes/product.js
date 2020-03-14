@@ -22,7 +22,7 @@ router.delete('/delete/:id', function(req, res) {
 
 // Update the Product by the product Id
 
-router.get('/:id', function(req, res) {
+router.get('/', function(req, res) {
     services.show_user_products(req, res);
 })
 

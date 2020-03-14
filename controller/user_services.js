@@ -41,8 +41,13 @@ exports.update_user = (req, res) => {
 
     jwt.verify(currentuser, conn[1].key, (err, data) => {
         var bod = req.body
-        console.log(data.id)
-        db.findOneAndUpdate({ _id: data.id }, bod, { new: true }, function(err, data) {
+        var obj = {
+            f_name: bod.f_name,
+            l_name: bod.l_name,
+            email: bod.email,
+            password: bcrypt.hashSync(bod.password, 10)
+        }
+        db.findOneAndUpdate({ _id: data.id }, obj, function(err, data) {
 
             if (data) {
                 return res.json({
@@ -71,34 +76,25 @@ exports.update_user = (req, res) => {
 // Get the user through the id
 
 exports.get_user = (req, res) => {
-    var currentuser = req.headers.authorization;
-    jwt.verify(currentuser, conn[1].key, (err, data) => {
+    db.find({}, function(err, data) {
 
-        var dataB = {
-            f_name: data.firstName,
-            l_name: data.lastName,
-            email: data.email
+        if (data === null) {
+
+            return res.json({
+                sucess: false,
+                message: "User Not Exist",
+                data: [""]
+            })
+
+        } else {
+            return res.json({
+                sucess: true,
+                message: "Users Get Successfully ",
+                data: data
+            })
+
         }
-        db.findOne({ email: data.email }, function(err, data) {
-
-            if (data === null) {
-
-                return res.json({
-                    sucess: false,
-                    message: "User Not Exist",
-                    data: [""]
-                })
-
-            } else {
-                return res.json({
-                    sucess: true,
-                    message: "Users Get Successfully ",
-                    data: dataB
-                })
-
-            }
-        });
-    })
+    });
 
 
 

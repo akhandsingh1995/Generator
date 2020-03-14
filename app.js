@@ -10,8 +10,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/user');
 var productsRouter = require('./routes/product');
 var reviewsRouter = require('./routes/review');
+const cors = require('cors')
 
 var app = express();
+app.use(cors());
 
 
 // view engine setup

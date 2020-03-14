@@ -13,7 +13,7 @@ router.post('/register', function(req, res) {
 // users login details through the database
 
 router.post('/login', function(req, res) {
-    ser.tokeninn(req, res)
+    ser.log_in(req, res);
 })
 
 // Delete the user through user id

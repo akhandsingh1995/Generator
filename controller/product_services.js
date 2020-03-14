@@ -19,7 +19,7 @@ try {
                 p_name: content.p_name,
                 p_desc: content.p_desc,
                 p_image: content.p_image,
-                obj_id: data.id,
+                // obj_id: data.id,
                 reviews: content.reviews
             })
             var datab = {
@@ -126,29 +126,26 @@ exports.update_product = (req, res) => {
 // Show the product of the user
 
 exports.show_user_products = (req, res) => {
-    jwt.verify(req.headers.authorization, conn[1].key, (err, data) => {
-        // var id = req.params.id;
-        // db_product.
-        // findOne({ _id: id }).
-        // populate('user').
-        // exec(function(err, data) {
-        //     if (err) return handleError(err);
-        //     if (data.length) {
-        //         return res.json({
-        //             sucess: true,
-        //             message: "Products  are Displayed",
-        //             data: data
-        //         })
-        //     } else {
-        //         res.send('no product for uthis user id')
-        //     }
-        // });
 
-        db_product.find({}).
-        populate('obj_id').
-        exec(function(err, doc) {
-            res.send(doc)
-        })
+    // var id = req.params.id;
+    // db_product.
+    // findOne({ _id: id }).
+    // populate('user').
+    // exec(function(err, data) {
+    //     if (err) return handleError(err);
+    //     if (data.length) {
+    //         return res.json({
+    //             sucess: true,
+    //             message: "Products  are Displayed",
+    //             data: data
+    //         })
+    //     } else {
+    //         res.send('no product for uthis user id')
+    //     }
+    // });
+
+    db_product.find({}, function(err, doc) {
+        res.send(doc)
     })
 
 }
